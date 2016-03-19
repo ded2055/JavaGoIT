@@ -1,20 +1,13 @@
 /* Домашнее задание к Модулю 6
 2. Добавить в магазин инструментов метод, который готовит к отгрузке партию музыкальных инструментов согласно заказу.
-
 Сигнатура метода:
 public List<Instrument> prepareInstruments(Map<String, Integer> order){...}
-
 В заказе (Map<String, Integer> order) хранится название инструмента и количество необходимых инструментов.
-
 Ключем в заказе является одна из строк "piano", "guitar", "trumpet"
-
 Создать свое исключение, которое будет брошено в случае, когда ключ в заказе другой.
-
 Каким-то образом (самостоятельно выбрать решение) обработать ситуацию, когда количество элементов в заказе отрицательное, нулевое.
-
 После выполнения метода из магазина должны пропасть те инструменты, которые были отгружены.
 В случае, когда количество запрашиваемых инструментов определенного типа больше, чем количество доступных инструментов в магазине, должно быть брошено исключение. Выбрать наиболее подходящее из доступных в стандартной библиотеке исключений
-
  */
 
 import java.util.*;
@@ -96,35 +89,6 @@ class MusicShop {
         }
     }
 
-    public static List<MusicalInstrument> addToOrderList(String instrument, int count){
-        List<MusicalInstrument> orderList = new ArrayList<>();
-        if (instrument.equals("guitar")) {
-            for (int i = 0; i < count; i++) {
-                orderList.add(new Guitar());
-            }
-        }else if (instrument.equals("piano")) {
-            for (int i = 0; i < count; i++) {
-                orderList.add(new Piano());
-            }
-        }else if (instrument.equals("trumpet")) {
-            for (int i = 0; i < count; i++) {
-                orderList.add(new Trumpet());
-            }
-        }
-        return orderList;
-    }
-    public static int checkOrderInstrumentCount(Map<String, Integer> order, String instrument, int countOfInstrumentsInShop) throws UnsupportedOperationException{
-        int countInstrumentsToRemove = 0;
-        if (order.get(instrument) <= countOfInstrumentsInShop) {
-            for (int i = 0; i < order.get(instrument); i++) {
-                countInstrumentsToRemove++;
-            }
-        } else {
-            throw new UnsupportedOperationException("Only " + countOfInstrumentsInShop + " "+instrument+"(s) exist in the Music Shop");
-        }
-        return countInstrumentsToRemove;
-    }
-
 
     public List<MusicalInstrument> prepareInstruments(Map<String, Integer> order){
         List<MusicalInstrument> orderList = new ArrayList<>();
@@ -133,42 +97,62 @@ class MusicShop {
         int countPianosToRemove = 0;
         int countTrumpetsToRemove = 0;
 
-        String guitar = "guitar";
-        String piano = "piano";
-        String trumpet = "trumpet";
-        
         if (order.isEmpty()) {
             throw new InvalidOrderException();
         } else {
             order.forEach((k, v) -> {
-                if (!((k.equals(piano)) || (k.equals(guitar)) || (k.equals(trumpet)))) {
+                if (!((k.equals("piano")) || (k.equals("guitar")) || (k.equals("trumpet")))) {
                     throw new InvalidKeyOrderException();
                 }
             });
         }
-        if (order.containsKey(guitar) || order.containsKey(piano) || order.containsKey(trumpet)) {
-            if ((order.containsKey(guitar)) && (order.get(guitar) > 0)) {
-                orderList.addAll(addToOrderList(guitar, order.get(guitar)));
-                countGuitarsToRemove += checkOrderInstrumentCount(order, guitar, guitars.size());
-            } else if ((order.containsKey(guitar)) && (order.get(guitar) <= 0)) {
-                throw new IllegalArgumentException("Negative or zero order guitar: " + order.get(guitar));
+        if (order.containsKey("guitar") || order.containsKey("piano") || order.containsKey("trumpet")) {
+            if ((order.containsKey("guitar")) && (order.get("guitar") > 0)) {
+                for (int i = 0; i < order.get("guitar"); i++) {
+                    orderList.add(new Guitar());
+                }
+                if ((order.get("guitar") <= guitars.size())) {
+                    for (int i = 0; i < order.get("guitar"); i++) {
+                        countGuitarsToRemove++;
+                    }
+                } else {
+                    throw new UnsupportedOperationException("Only " + guitars.size() + " guitar(s) exist in the Music Shop");
+                }
+            } else if ((order.containsKey("guitar")) && (order.get("guitar") <= 0)) {
+                throw new IllegalArgumentException("Negative or zero order guitar: " + (order.get("guitar")));
             }
-            if ((order.containsKey(piano)) && (order.get(piano) > 0)) {
-                orderList.addAll(addToOrderList(piano, order.get(piano)));
-                countPianosToRemove += checkOrderInstrumentCount(order, piano, pianos.size());
-            } else if ((order.containsKey(piano)) && (order.get(piano) <= 0)) {
-                throw new IllegalArgumentException("Negative or zero order piano: " + order.get(piano));
+            if ((order.containsKey("piano")) && (order.get("piano") > 0)) {
+                for (int i = 0; i < order.get("piano"); i++) {
+                    orderList.add(new Piano());
+                }
+                if ((order.get("piano") <= pianos.size())) {
+                    for (int i = 0; i < order.get("piano"); i++) {
+                        countPianosToRemove++;
+                    }
+                } else {
+                    throw new UnsupportedOperationException("Only " + pianos.size() + " piano(s) exist in the Music Shop");
+                }
+            } else if ((order.containsKey("piano")) && (order.get("piano") <= 0)) {
+                throw new IllegalArgumentException("Negative or zero order piano: " + (order.get("piano")));
             }
-            if ((order.containsKey(trumpet)) && (order.get(trumpet) > 0)) {
-                orderList.addAll(addToOrderList(trumpet, order.get(trumpet)));
-                countTrumpetsToRemove += checkOrderInstrumentCount(order, trumpet, trumpets.size());
-            } else if ((order.containsKey(trumpet)) && (order.get(trumpet) <= 0)) {
-                throw new IllegalArgumentException("Negative or zero order trumpet: " + order.get(trumpet));
+            if ((order.containsKey("trumpet")) && (order.get("trumpet") > 0)) {
+                for (int i = 0; i < order.get("trumpet"); i++) {
+                    orderList.add(new Trumpet());
+                }
+                if (order.get("trumpet") <= trumpets.size()) {
+                    for (int i = 0; i < order.get("trumpet"); i++) {
+                        countTrumpetsToRemove++;
+                    }
+                } else {
+                    throw new UnsupportedOperationException("Only " + trumpets.size() + " trumpet(s) exist in the Music Shop");
+                }
+            } else if ((order.containsKey("trumpet")) && (order.get("trumpet") <= 0)) {
+                throw new IllegalArgumentException("Negative or zero order trumpet: " + (order.get("piano")));
             }
         }
         if(countGuitarsToRemove > 0){
-            List<Guitar> guitarsToStay = guitars.subList(countGuitarsToRemove, guitars.size());
-            guitars = guitarsToStay;
+                List<Guitar> guitarsToStay = guitars.subList(countGuitarsToRemove, guitars.size());
+                guitars = guitarsToStay;
         }
         if(countPianosToRemove > 0){
             List<Piano> pianosToStay = pianos.subList(countPianosToRemove, pianos.size());
