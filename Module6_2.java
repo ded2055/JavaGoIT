@@ -133,33 +133,37 @@ class MusicShop {
         int countPianosToRemove = 0;
         int countTrumpetsToRemove = 0;
 
+        String guitar = "guitar";
+        String piano = "piano";
+        String trumpet = "trumpet";
+        
         if (order.isEmpty()) {
             throw new InvalidOrderException();
         } else {
             order.forEach((k, v) -> {
-                if (!((k.equals("piano")) || (k.equals("guitar")) || (k.equals("trumpet")))) {
+                if (!((k.equals(piano)) || (k.equals(guitar)) || (k.equals(trumpet)))) {
                     throw new InvalidKeyOrderException();
                 }
             });
         }
-        if (order.containsKey("guitar") || order.containsKey("piano") || order.containsKey("trumpet")) {
-            if ((order.containsKey("guitar")) && (order.get("guitar") > 0)) {
-                orderList.addAll(addToOrderList("guitar", order.get("guitar")));
-                countGuitarsToRemove += checkOrderInstrumentCount(order, "guitar", guitars.size());
-            } else if ((order.containsKey("guitar")) && (order.get("guitar") <= 0)) {
-                throw new IllegalArgumentException("Negative or zero order guitar: " + order.get("guitar"));
+        if (order.containsKey(guitar) || order.containsKey(piano) || order.containsKey(trumpet)) {
+            if ((order.containsKey(guitar)) && (order.get(guitar) > 0)) {
+                orderList.addAll(addToOrderList(guitar, order.get(guitar)));
+                countGuitarsToRemove += checkOrderInstrumentCount(order, guitar, guitars.size());
+            } else if ((order.containsKey(guitar)) && (order.get(guitar) <= 0)) {
+                throw new IllegalArgumentException("Negative or zero order guitar: " + order.get(guitar));
             }
-            if ((order.containsKey("piano")) && (order.get("piano") > 0)) {
-                orderList.addAll(addToOrderList("piano", order.get("piano")));
-                countPianosToRemove += checkOrderInstrumentCount(order, "piano", pianos.size());
-            } else if ((order.containsKey("piano")) && (order.get("piano") <= 0)) {
-                throw new IllegalArgumentException("Negative or zero order piano: " + order.get("piano"));
+            if ((order.containsKey(piano)) && (order.get(piano) > 0)) {
+                orderList.addAll(addToOrderList(piano, order.get(piano)));
+                countPianosToRemove += checkOrderInstrumentCount(order, piano, pianos.size());
+            } else if ((order.containsKey(piano)) && (order.get(piano) <= 0)) {
+                throw new IllegalArgumentException("Negative or zero order piano: " + order.get(piano));
             }
-            if ((order.containsKey("trumpet")) && (order.get("trumpet") > 0)) {
-                orderList.addAll(addToOrderList("trumpet", order.get("trumpet")));
-                countTrumpetsToRemove += checkOrderInstrumentCount(order, "trumpet", trumpets.size());
-            } else if ((order.containsKey("trumpet")) && (order.get("trumpet") <= 0)) {
-                throw new IllegalArgumentException("Negative or zero order trumpet: " + order.get("piano"));
+            if ((order.containsKey(trumpet)) && (order.get(trumpet) > 0)) {
+                orderList.addAll(addToOrderList(trumpet, order.get(trumpet)));
+                countTrumpetsToRemove += checkOrderInstrumentCount(order, trumpet, trumpets.size());
+            } else if ((order.containsKey(trumpet)) && (order.get(trumpet) <= 0)) {
+                throw new IllegalArgumentException("Negative or zero order trumpet: " + order.get(trumpet));
             }
         }
         if(countGuitarsToRemove > 0){
