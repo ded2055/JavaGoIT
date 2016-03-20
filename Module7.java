@@ -100,7 +100,7 @@ class MusicShop {
                 }
             });
         }
-        if (order.containsKey("guitar") || order.containsKey("piano") || order.containsKey("trumpet")) {                         // 1* В коде между 1* *1, 2* *2 и 3* *3 повторяющиеся секции кода которые можно вынести в отдельный метод
+        if (order.containsKey("guitar") || order.containsKey("piano") || order.containsKey("trumpet")) { // 1* В коде между 1* *1, 2* *2 и 3* *3 повторяющиеся секции кода которые можно вынести в отдельный метод
             if ((order.containsKey("guitar")) && (order.get("guitar") > 0)) {
                 for (int i = 0; i < order.get("guitar"); i++) {
                     orderList.add(new Guitar());
@@ -114,8 +114,8 @@ class MusicShop {
                 }
             } else if ((order.containsKey("guitar")) && (order.get("guitar") <= 0)) {
                 throw new IllegalArgumentException("Negative or zero order guitar: " + (order.get("guitar")));
-            }                                                                                                                       // *1
-            if ((order.containsKey("piano")) && (order.get("piano") > 0)) {                                                         // *2 В коде между 1* *1, 2* *2 и 3* *3 повторяющиеся секции кода которые можно вынести в отдельный метод
+            }                                                                                          // *1
+            if ((order.containsKey("piano")) && (order.get("piano") > 0)) {                            // *2 В коде между 1* *1, 2* *2 и 3* *3 повторяющиеся секции кода которые можно вынести в отдельный метод
                 for (int i = 0; i < order.get("piano"); i++) {
                     orderList.add(new Piano());
                 }
@@ -128,8 +128,8 @@ class MusicShop {
                 }
             } else if ((order.containsKey("piano")) && (order.get("piano") <= 0)) {
                 throw new IllegalArgumentException("Negative or zero order piano: " + (order.get("piano")));
-            }                                                                                                                       // *2
-            if ((order.containsKey("trumpet")) && (order.get("trumpet") > 0)) {                                                     // *3 В коде между 1* *1, 2* *2 и 3* *3 повторяющиеся секции кода которые можно вынести в отдельный метод
+            }                                                                                           // *2
+            if ((order.containsKey("trumpet")) && (order.get("trumpet") > 0)) {                         // *3 В коде между 1* *1, 2* *2 и 3* *3 повторяющиеся секции кода которые можно вынести в отдельный метод
                 for (int i = 0; i < order.get("trumpet"); i++) {
                     orderList.add(new Trumpet());
                 }
@@ -142,7 +142,7 @@ class MusicShop {
                 }
             } else if ((order.containsKey("trumpet")) && (order.get("trumpet") <= 0)) {
                 throw new IllegalArgumentException("Negative or zero order trumpet: " + (order.get("piano")));
-            }                                                                                                                       // *3
+            }                                                                                              // *3
         }
         if(countGuitarsToRemove > 0){
             List<Guitar> guitarsToStay = guitars.subList(countGuitarsToRemove, guitars.size());  // удалить избыточне переменные
