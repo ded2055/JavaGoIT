@@ -17,9 +17,9 @@ public class Module8 {
         System.out.println();
 
         for (int i = 0; i < 10; i++) {
-            dir.audioFiles.add(new AudioFile("AudioFile_"+(i+1), dir.path + "\\" + dir.name+"\\"));
-            dir.textFiles.add(new TextFile("TextFile_"+(i+1), dir.path + "\\" + dir.name+"\\"));
-            dir.imageFiles.add(new ImageFile("ImageFile_"+(i+1), dir.path + "\\" + dir.name+"\\"));
+            dir.audioFiles.add(new AudioFile("AudioFile_"+((int)(Math.random()*100)), dir.path + "\\" + dir.name+"\\"));
+            dir.textFiles.add(new TextFile("TextFile_"+((int)(Math.random()*100)), dir.path + "\\" + dir.name+"\\"));
+            dir.imageFiles.add(new ImageFile("ImageFile_"+((int)(Math.random()*100)), dir.path + "\\" + dir.name+"\\"));
         }
         dir.fileList = dir.getFileList();
 
