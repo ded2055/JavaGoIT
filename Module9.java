@@ -12,9 +12,9 @@ import java.util.List;
 
 public class Module9 {
     public static void main(String[] args) {
-        String text = "roses, asters, chamomiles}";
+        String text = "roses, asters, chamomiles)";
 
-        CeaserEncryption ceaser = new CeaserEncryption();
+        CeasarEncryption ceaser = new CeasarEncryption();
 
         String en = ceaser.encrypt(text, 7);
         System.out.println("Encrypted text: "+en);
@@ -23,9 +23,9 @@ public class Module9 {
     }
 }
 
-class CeaserEncryption {
+class CeasarEncryption {
     List<Character> lettersAndNumbers = new ArrayList<>();
-    CeaserEncryption(){
+    CeasarEncryption(){
         char[] PUNCTUATION = {'.', ',', ';', ':', '!', '?', '-', ' '};
 
         for (char letter = 'A'; letter <= 'Z'; letter++) {
@@ -45,7 +45,7 @@ class CeaserEncryption {
 
         StringBuilder cryptedString = new StringBuilder();
 
-        for (int i = 0; i < text.length()-1; i++) {
+        for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
             int index = lettersAndNumbers.indexOf(c);
             index = (index  + offset) % lettersAndNumbers.size();
@@ -57,7 +57,7 @@ class CeaserEncryption {
 
         StringBuilder decryptedString = new StringBuilder();
 
-        for (int i = 0; i < text.length()-1; i++) {
+        for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
             int index = lettersAndNumbers.indexOf(c);
             index = (((index - offset) ) %lettersAndNumbers.size()  + lettersAndNumbers.size()) % lettersAndNumbers.size();
